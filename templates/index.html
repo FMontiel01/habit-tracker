@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Habit Application</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    {%for habit in my_habits%}
+        <div class="habit-card">
+            <h2>{{ habit.name }}</h2>
+            <p>{{ habit.type }}</p>
+            <p>{{ habit.target_days }} days</p>
+            <p>{{ habit.completed_dates }}</p>
+            <p>{{ habit.date_created }}</p>
+            <button>Complete</button>
+        </div>
+    {% endfor %}
+</body>
+</html>
