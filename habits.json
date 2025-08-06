@@ -11,9 +11,8 @@
     "id": "habit-2",
     "name": "Reading",
     "date_created": "07/29/2025",
-    "completed_dates": ["07/29/25"],
+    "completed_dates": ["07/29/2025"],
     "target_days": "4",
     "type": "Self Improvement"
-
   }
 ]

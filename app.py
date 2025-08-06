@@ -1,12 +1,18 @@
 from flask import Flask, render_template
 import json
+from datetime import datetime
 
 app = Flask(__name__)
 
 list_of_habits = []
+today = datetime.now().date()
 try:
     with open("habits.json", "r") as file:
         list_of_habits = json.load(file)
+        for habit in list_of_habits:
+            for date in habit['completed_dates']:
+                date_object = datetime.strptime(date,"%m/%d/%Y").date()
+                
 
 except FileNotFoundError:
     print("Error: 'habits.json' not found.")
