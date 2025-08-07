@@ -12,6 +12,7 @@
             <p>{{ habit.target_days }} days</p>
             <p>{{ habit.completed_dates }}</p>
             <p>{{ habit.date_created }}</p>
+            <p>Progress: {{ habit.weekly_progress }} / {{ habit.target_days }}</p>
             <button>Complete</button>
         </div>
     {% endfor %}
