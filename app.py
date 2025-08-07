@@ -19,10 +19,15 @@ try:
                 if 0 <= current_week <= 6:
                     counter += 1
             habit['weekly_progress'] = counter
+            checkmarks = habit['weekly_progress']
+
+
 except FileNotFoundError:
     print("Error: 'habits.json' not found.")
 except json.JSONDecodeError:
     print("Error: Could not decode JSON from 'habits.json'.")
+
+
 
 
 
