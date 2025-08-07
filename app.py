@@ -4,16 +4,21 @@ from datetime import datetime
 
 app = Flask(__name__)
 
+
 list_of_habits = []
 today = datetime.now().date()
 try:
     with open("habits.json", "r") as file:
         list_of_habits = json.load(file)
         for habit in list_of_habits:
+            counter = 0
             for date in habit['completed_dates']:
                 date_object = datetime.strptime(date,"%m/%d/%Y").date()
-                
-
+                delta = today - date_object
+                current_week = delta.days
+                if 0 <= current_week <= 6:
+                    counter += 1
+            habit['weekly_progress'] = counter
 except FileNotFoundError:
     print("Error: 'habits.json' not found.")
 except json.JSONDecodeError:
