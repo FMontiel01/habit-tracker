@@ -2,9 +2,9 @@
   {
     "id": "habit-1",
     "name": "Workout",
-    "date_created": "07/30/25",
-    "completed_dates": ["08/04/2025", "07/30/2025"],
-    "target_days": "5",
+    "date_created": "07/30/2025",
+    "completed_dates": ["08/04/2025", "08/06/2025"],
+    "target_days": 5,
     "type": "Health"
   },
   {
@@ -12,7 +12,7 @@
     "name": "Reading",
     "date_created": "07/29/2025",
     "completed_dates": ["08/05/2025"],
-    "target_days": "4",
+    "target_days": 4,
     "type": "Self Improvement"
   }
 ]

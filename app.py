@@ -19,8 +19,12 @@ try:
                 if 0 <= current_week <= 6:
                     counter += 1
             habit['weekly_progress'] = counter
-            checkmarks = habit['weekly_progress']
-
+            if habit['weekly_progress'] > habit['target_days']:
+                cap = habit['target_days']
+                display_checkmarks = cap
+            else:
+                display_checkmarks = habit['weekly_progress']
+            blank = habit['target_days'] - display_checkmarks
 
 except FileNotFoundError:
     print("Error: 'habits.json' not found.")
