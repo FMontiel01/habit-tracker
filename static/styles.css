@@ -57,3 +57,21 @@
     background-color: #45a049;
 }
 
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  border-radius: 9999px;
+  border: 1px solid #334155; /* subtle outline */
+  white-space: nowrap;        /* no wrapping */
+  margin-left: 0.5rem;        /* space from the button */
+}
+
+.badge--met {
+  color: #22c55e;                      /* green text */
+  background: rgba(34, 197, 94, 0.12); /* soft green tint */
+}
+
