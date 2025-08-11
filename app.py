@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 import json
 from datetime import datetime
 
@@ -20,11 +20,11 @@ try:
                     counter += 1
             habit['weekly_progress'] = counter
             if habit['weekly_progress'] > habit['target_days']:
-                cap = habit['target_days']
-                display_checkmarks = cap
+                display_checkmarks = habit['target_days']
             else:
                 display_checkmarks = habit['weekly_progress']
-            blank = habit['target_days'] - display_checkmarks
+            blanks = habit['target_days'] - display_checkmarks
+            habit['emoji_bar'] = "✅" * display_checkmarks + "⬜" * blanks
 
 except FileNotFoundError:
     print("Error: 'habits.json' not found.")
@@ -32,14 +32,12 @@ except json.JSONDecodeError:
     print("Error: Could not decode JSON from 'habits.json'.")
 
 
-
-
-
-
 @app.route("/")
 def index():
     return render_template("index.html", my_habits=list_of_habits)
 
+@app.route('/complete', methods=['POST'])
+def complete():
+    return redirect(url_for('index'))
 if __name__ == "__main__":
     app.run(debug=True)
-
