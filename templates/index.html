@@ -22,6 +22,9 @@
                         {% if done %} disabled aria-disabled="true" title="Target met for this week"{% endif %}>
                     {% if done %}Complete{% else %}Complete{% endif %}
                 </button>
+                {% if done %}
+                    <span class="badge badge--met" aria-label="Target met this week">Target met ✅</span>
+                {% endif %}
             </form>
         </div>
     {% endfor %}
