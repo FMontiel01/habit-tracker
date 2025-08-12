@@ -5,35 +5,45 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    {%for habit in my_habits%}
-        <div class="habit-card">
-            <h2>{{ habit.name }}</h2>
-            <p>{{ habit.type }}</p>
-            <p>{{ habit.target_days }} days</p>
-            <p>{{ habit.completed_dates }}</p>
-            <p>{{ habit.date_created }}</p>
-            <p>Progress: {{ habit.weekly_progress }} / {{ habit.target_days }}</p>
-            <span class="sr-only">
-                {{ habit.weekly_progress }} of {{ habit.target_days }} days completed this week
-            </span>
-            <div class="emoji-bar"
-                 role="img"
-                 aria-label="{{ habit.weekly_progress }} of {{ habit.target_days }} days completed this week">
-                {{ habit.emoji_bar }}
-            </div>
-            <form action="{{ url_for('complete') }}" method="post">
-                <input type="hidden" name="habit_id" value="{{ habit.id }}">
-                {% set done = habit.weekly_progress >= habit.target_days %}
-                <button type="submit"
-                        class = "btn btn-complete{% if done %} is-disabled{% endif %}"
-                        {% if done %} disabled aria-disabled="true" title="Target met for this week"{% endif %}>
-                    {% if done %}Complete{% else %}Complete{% endif %}
-                </button>
-                {% if done %}
-                    <span class="badge badge--met" aria-label="Target met this week">Target met ✅</span>
-                {% endif %}
-            </form>
+    {% if my_habits %}
+        <div class = "cards-grid">
+            {%for habit in my_habits%}
+                <div class="habit-card">
+                    <h2>{{ habit.name }}</h2>
+                    <p>{{ habit.type }}</p>
+                    <p>{{ habit.target_days }} days</p>
+                    <p>{{ habit.completed_dates }}</p>
+                    <p>{{ habit.date_created }}</p>
+                    <p>Progress: {{ habit.weekly_progress }} / {{ habit.target_days }}</p>
+                    <span class="sr-only">
+                        {{ habit.weekly_progress }} of {{ habit.target_days }} days completed this week
+                    </span>
+                    <div class="emoji-bar"
+                         role="img"
+                         aria-label="{{ habit.weekly_progress }} of {{ habit.target_days }} days completed this week">
+                        {{ habit.emoji_bar }}
+                    </div>
+                    <form action="{{ url_for('complete') }}" method="post">
+                        <input type="hidden" name="habit_id" value="{{ habit.id }}">
+                        {% set done = habit.weekly_progress >= habit.target_days %}
+                        <button type="submit"
+                                class = "btn btn-complete{% if done %} is-disabled{% endif %}"
+                                {% if done %} disabled aria-disabled="true" title="Target met for this week"{% endif %}>
+                            {% if done %}Complete{% else %}Complete{% endif %}
+                        </button>
+                        {% if done %}
+                            <span class="badge badge--met" aria-label="Target met this week">Target met ✅</span>
+                        {% endif %}
+                    </form>
+                </div>
+            {% endfor %}
         </div>
-    {% endfor %}
+    {% else %}
+        <div class = "empty-card" role="region" aria-label="No habits yet. Use Add a habit to create your first one.">
+            <h2>No habits yet</h2>
+            <p>Start small. Add your first habit to track your week.</p>
+            <a href="#" class="btn">Add a habit</a>
+        </div>
+    {% endif %}
 </body>
 </html>
