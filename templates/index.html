@@ -5,12 +5,50 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
+    <section class = "add-habit">
+        <h2>Add a habit</h2>
+        <form action="#" method="post" class="add-habit-form">
+            <div class="form-row">
+                <label for="name">Name</label>
+                <input id="name" name="name" type="text" required maxlength="40" placeholder="e.g., Morning run">
+            </div>
+            <div class="form-row">
+                <label for="category">Category</label>
+                <select id="category" name="category">
+                    <option value="Health" selected>Health</option>
+                    <option value="Fitness">Fitness</option>
+                    <option value="Self-Improvement">Self-Improvement</option>
+                    <option value="Study">Study</option>
+                    <option value="Work">Work/Career</option>
+                    <option value="Finance">Finance</option>
+                    <option value="Relationships">Relationships</option>
+                    <option value="Spiritual">Spiritual</option>
+                    <option value="Home">Home</option>
+                    <option value="Hobby">Hobby</option>
+                    <option value="Sleep">Sleep</option>
+                    <option value="Nutrition">Nutrition</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <label for="category_custom">Custom category (optional)</label>
+                <input id="category_custom" name="category_custom" type="text" maxlength="24" placeholder="e.g., Guitar practice">
+                <small class="help">If filled, this overrides the selection above.</small>
+            </div>
+            <div class="form-row">
+                <label for="target_days">Target days per week</label>
+                <input id="target_days" name="target_days" type="number" min="1" max="7" step="1" value="5" aria-describedby="target-hint">
+                <small id="target-hint" class="help">Choose 1-7. Try 3-5 to start.</small>
+            </div>
+            <button type="submit" class="btn">Add habit</button>
+        </form>
+    </section>
     {% if my_habits %}
         <div class = "cards-grid">
             {%for habit in my_habits%}
                 <div class="habit-card">
                     <h2>{{ habit.name }}</h2>
-                    <p>{{ habit.type }}</p>
+                    <p>{{ habit.category }}</p>
                     <p>{{ habit.target_days }} days</p>
                     <p>{{ habit.completed_dates }}</p>
                     <p>{{ habit.date_created }}</p>
