@@ -108,3 +108,17 @@
   margin: 0 0 16px;
   opacity: 0.8;          /* subtle secondary text */
 }
+
+.add-habit { padding: 16px; }
+.add-habit h2 { margin: 0 0 8px; font-size: 1.1rem; }
+
+.add-habit-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  align-items: end;
+}
+
+.form-row { display: flex; flex-direction: column; gap: 6px; }
+.help { opacity: 0.8; font-size: 0.85rem; }
+.add-habit-form .btn { justify-self: start; }
