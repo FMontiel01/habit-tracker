@@ -1,6 +1,7 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 import json
 from datetime import datetime
+import uuid
 
 app = Flask(__name__)
 
@@ -38,6 +39,52 @@ def index():
 
 @app.route('/complete', methods=['POST'])
 def complete():
+    return redirect(url_for('index'))
+
+@app.route('/add', methods=['POST'])
+def add():
+    #Read and normalize inputs
+    name = (request.form.get('name') or '').strip()
+    category_select = (request.form.get('category') or '').strip()
+    category_custom = (request.form.get('category_custom') or '').strip()
+    target_raw = (request.form.get('target_days') or '').strip()
+
+    # Choose final category (custom overides select)
+    category = category_custom if category_custom else category_select
+    category = category.strip().title() if category else 'Other'
+
+    #Validate inputs
+    if not (1 <= len(name) <= 40):
+        return redirect(url_for('index'))
+    if any(habit['name'].lower() == name.lower() for habit in list_of_habits):
+        return redirect(url_for('index'))
+
+    # Target days: integer in [1-7]
+    try:
+        target_days = int(target_raw)
+    except ValueError:
+        return redirect(url_for('index'))
+    if not (1 <= target_days <= 7):
+        return redirect(url_for('index'))
+
+    #Category: 2-24 chars (fallback to 'Other' if too short)
+    if len(category) < 2 or len(category) > 24:
+        category = 'Other'
+
+    # Build the habit object
+    habit = {
+        'id': str(uuid.uuid4()),
+        'name': name,
+        'category': category,
+        'target_days': target_days,
+        'date_created': date.today().isoformat(),
+        'completed_dates': [],
+        'weekly_progress': 0,
+        'emoji_bar': ''
+    }
+
+    #Save + PRG redirect
+    list_of_habits.append(habit)
     return redirect(url_for('index'))
 
 if __name__ == "__main__":
